@@ -16,25 +16,8 @@ public class ContactDemoMain {
 		while (true) {
 			System.out.print("👉 Enter the name :");
 			String name = choice.next();
-			while (true) {
-				System.out.print("👉 Enter the mail id :");
-				mail_id = choice.next();
-				if (EmailCheckerUtil.emailChecker(mail_id)) {
-
-					break;
-
-				} else {
-					System.out.println(" OOPS ! ,Entered mail id is invalid !");
-					continue;
-				}
-			}
-			while (true) {
-				System.out.print("👉 Enter the number(Start digit with 6-9 ):");
-				num = choice.next();
-				if (numberChecker(num)) {
-					break;
-				}
-			}
+			mail_id = inputMailChecker();
+			num = getPhoneNumber() ;
 			contact_list.add(new ContactDetails(name, mail_id, num));
 			System.out.println(" __________________________________________________________");
 			System.out.println(String.format("|👉 The no.of contacts present in the contact list is : %s  |",
@@ -68,7 +51,7 @@ public class ContactDemoMain {
 				String word = choice.next();
 				boolean flag = false;
 				for (ContactDetails i : contact_list) {
-					if (i.name.contains(word) || i.mail_id.contains(word) || i.number.contains(word)) {
+					if (i.getName().contains(word) || i.getMail_id().contains(word) || i.getNumber().contains(word)) {
 						i.viewContact();
 						flag = true;
 					}
@@ -79,12 +62,10 @@ public class ContactDemoMain {
 				break;
 			case 2:
 				System.out.println("Enter details for add contact:");
-				System.out.println("👉 Enter name:");
+				System.out.print("👉 Enter name:");
 				String name1 = choice.next();
-				System.out.println("👉 Enter mail :");
-				String mail = choice.next();
-				System.out.println("👉 Enter number : ");
-				String num1 = choice.next();
+				String mail = inputMailChecker();
+				String num1 = getPhoneNumber();
 				contact_list.add(new ContactDetails(name1, mail, num1));
 				System.out.println("************************************************************");
 				System.out.println("*              contact saved !                             *");
@@ -94,23 +75,8 @@ public class ContactDemoMain {
 				break;
 
 			case 3:
-				System.out.println("👉 Enter the name to delete contact");
-				String Name = choice.next();
-				boolean flag1 = false;
-				for (int i = 0; i < contact_list.size(); i++) {
-					if (contact_list.get(i).name.equals(Name)) {
-						flag1 = true;
-						contact_list.remove(i);
-						System.out.println("contact is removed  successfully! ");
-						noOfContacts(contact_list);
-						break;
-					}
-				}
-				if (flag1 == false) {
-					System.out.println();
-					System.out.println("Please Enter Valid Name !");
-				}
-
+				
+				DeleteContact.delContact(contact_list );
 				break;
 
 			case 4:
@@ -132,18 +98,41 @@ public class ContactDemoMain {
 
 	}
 
-	private static boolean numberChecker(String num) {
-		if (num.length() == 10 && (Character.getNumericValue(num.charAt(0))) < 10
-				&& (Character.getNumericValue(num.charAt(0))) > 5) {
 
-			return true;
+
+	private static String getPhoneNumber() {
+		String number;
+		System.out.print("👉 Enter the number :");
+		Scanner choice = new Scanner(System.in);
+		number = choice.next();
+		if (NumberCheckerUtil.numberChecker(number)) {
+			System.out.println("Entered number is valid !");
+			return number;
+
 		}
-		System.out.println("OOPS! ,The Number You Entered Is InValid !");
-		return false;
+		return getPhoneNumber();
+		
 	}
 
 	public static void noOfContacts(ArrayList<ContactDetails> contact_list) {
 		System.out.println(String.format("Total no of contacts : %s", contact_list.size()));
+	}
+
+	public static String inputMailChecker() {
+		String mail_id;
+		Scanner choice = new Scanner(System.in);
+		System.out.print("👉 Enter the mail id :");
+		mail_id = choice.next();
+		if (EmailCheckerUtil.emailChecker(mail_id)) {
+			System.out.println("The entered mail id is valid !");
+			return mail_id;
+		} else {
+			System.out.println("OOPS ! ,The entered mail id is InValid ");
+			 return inputMailChecker();
+			
+
+		}
+
 	}
 
 }

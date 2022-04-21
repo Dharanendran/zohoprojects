@@ -16,10 +16,10 @@ public class contactEditUtil {
 			System.out.println("Enter the new name to the person : ");
 			String editName = choice.next();
 			for (ContactDetails i : contact_list) {
-				if (i.name.equals(Name)) {
+				if (i.getName().equals(Name)) {
 					System.out.println("**************** Before Edit ****************");
 					i.viewContact();
-					i.name = editName;
+					i.setName(editName);
 					System.out.println("**************** After Edit  ****************");
 					i.viewContact();
 					break;
@@ -33,10 +33,10 @@ public class contactEditUtil {
 			System.out.println("Enter the new new mailId to the person : ");
 			String editmail = choice.next();
 			for (ContactDetails i : contact_list) {
-				if (i.mail_id.equals(mail)) {
+				if (i.getMail_id().equals(mail)) {
 					System.out.println("**************** Before Edit ****************");
 					i.viewContact();
-					i.mail_id = editmail;
+					i.setMail_id(editmail);
 					System.out.println("**************** After Edit  ****************");
 					i.viewContact();
 					break;
@@ -51,10 +51,10 @@ public class contactEditUtil {
 			System.out.println("Enter the new phone number to the person : ");
 			String editNum = choice.next();
 			for (ContactDetails i : contact_list) {
-				if (i.number == num) {
+				if (i.getNumber() == num) {
 					System.out.println("**************** Before Edit ****************");
 					i.viewContact();
-					i.number = editNum;
+					i.setNumber(editNum);
 					System.out.println("**************** After Edit  ****************");
 					i.viewContact();
 					break;
