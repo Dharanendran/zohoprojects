@@ -10,15 +10,16 @@ public class ContactDemoMain {
 		Scanner choice = new Scanner(System.in);
 
 		ArrayList<ContactDetails> contact_list = new ArrayList<>();
-		String mail_id;
-		String num;
+		
+		AdvanceSearch advsearchobj = new AdvanceSearch();
 
 		while (true) {
 			System.out.print("👉 Enter the name :");
 			String name = choice.next();
-			mail_id = inputMailChecker();
-			num = getPhoneNumber() ;
-			contact_list.add(new ContactDetails(name, mail_id, num));
+			String mail_id = inputMailChecker();
+			String num = getPhoneNumber();
+			System.out.println();
+			addAddress(contact_list, name, mail_id, num);
 			System.out.println(" __________________________________________________________");
 			System.out.println(String.format("|👉 The no.of contacts present in the contact list is : %s  |",
 					contact_list.size()));
@@ -36,12 +37,13 @@ public class ContactDemoMain {
 		while (true) {
 			System.out.println();
 			System.out.println();
-			System.out.println("------------>press 1 to search contact");
-			System.out.println("------------>press 2 to add contact");
-			System.out.println("------------>press 3 to delete contact");
-			System.out.println("------------>press 4 to view contact table");
-			System.out.println("------------>press 5 to edit contact");
-			System.out.println("------------>press -1 to exit");
+			System.out.println("------------> 1 to search contact");
+			System.out.println("------------> 2 to advance search");
+			System.out.println("------------> 3 to add contact");
+			System.out.println("------------> 4 to delete contact");
+			System.out.println("------------> 5 to view contact table");
+			System.out.println("------------> 6 to edit contact");
+			System.out.println("------------> -1 to exit");
 			int select = choice.nextInt();
 
 			switch (select) {
@@ -61,12 +63,15 @@ public class ContactDemoMain {
 				}
 				break;
 			case 2:
+				advsearchobj.advSearch(contact_list);
+				break;
+			case 3:
 				System.out.println("Enter details for add contact:");
 				System.out.print("👉 Enter name:");
 				String name1 = choice.next();
 				String mail = inputMailChecker();
 				String num1 = getPhoneNumber();
-				contact_list.add(new ContactDetails(name1, mail, num1));
+				addAddress(contact_list, name1, mail, num1);
 				System.out.println("************************************************************");
 				System.out.println("*              contact saved !                             *");
 				System.out.println("************************************************************");
@@ -74,16 +79,16 @@ public class ContactDemoMain {
 				noOfContacts(contact_list);
 				break;
 
-			case 3:
-				
-				DeleteContact.delContact(contact_list );
-				break;
-
 			case 4:
-				viewContactTableUtil.contactTable(contact_list);
+
+				DeleteContact.delContact(contact_list);
 				break;
 
 			case 5:
+				viewContactTableUtil.contactTable(contact_list);
+				break;
+
+			case 6:
 				contactEditUtil.edit(choice, contact_list);
 				break;
 
@@ -98,20 +103,17 @@ public class ContactDemoMain {
 
 	}
 
-
-
 	private static String getPhoneNumber() {
 		String number;
 		System.out.print("👉 Enter the number :");
 		Scanner choice = new Scanner(System.in);
 		number = choice.next();
 		if (NumberCheckerUtil.numberChecker(number)) {
-			System.out.println("Entered number is valid !");
 			return number;
 
 		}
 		return getPhoneNumber();
-		
+
 	}
 
 	public static void noOfContacts(ArrayList<ContactDetails> contact_list) {
@@ -124,15 +126,40 @@ public class ContactDemoMain {
 		System.out.print("👉 Enter the mail id :");
 		mail_id = choice.next();
 		if (EmailCheckerUtil.emailChecker(mail_id)) {
-			System.out.println("The entered mail id is valid !");
 			return mail_id;
 		} else {
 			System.out.println("OOPS ! ,The entered mail id is InValid ");
-			 return inputMailChecker();
-			
+			return inputMailChecker();
 
 		}
 
 	}
 
+	public static void addAddress(ArrayList<ContactDetails> contact_list, String name, String mail_id, String num) {
+		String street_name;
+
+		int door_no, pin_code;
+
+		Scanner choice = new Scanner(System.in);
+
+		System.out.println("If you want to add Address press \"y\" or press \"n\"");
+		String select = choice.next();
+		switch (select) {
+		case "y":
+			System.out.print("door No :");
+			door_no = choice.nextInt();
+			System.out.print("Street name :");
+			street_name = choice.next();
+			System.out.print("pin code :");
+			pin_code = choice.nextInt();
+			contact_list.add(new ContactDetails(name, mail_id, num, door_no, street_name, pin_code));
+			break ;
+			
+		case "n" :
+			contact_list.add(new ContactDetails(name, mail_id , num));
+			break ;
+			
+		}
+
+	}
 }
