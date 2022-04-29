@@ -1,12 +1,24 @@
 package Task3ContactApplication;
 
-public class ContactDetails {
+import java.util.HashMap;
+
+import organisationlist.OrganizationDetails;
+
+public class ContactDetails extends BaseClass{
 
 	private String name;
 	private String mail_id;
 	private String number;
 	Address address;
-
+	public String company_name ;
+	
+	public ContactDetails getObjContact() {
+		return this ;
+	}
+	public OrganizationDetails getObjOrg() {
+		return null ;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -31,9 +43,9 @@ public class ContactDetails {
 		this.number = number;
 	}
 
-	ContactDetails(String name, String mail_id, String number, int door_no, String street_name, int pin_code) {
+	ContactDetails(String name, String mail_id, String number, Address address) {
 		this(name, mail_id, number);
-		address = new Address(door_no, street_name, pin_code);
+		this.address = address;
 	}
 
 	ContactDetails(String name, String mail_id, String number) {
@@ -45,10 +57,15 @@ public class ContactDetails {
 
 	public void viewContact() {
 		System.out.println();
-		System.out.println(String.format("Name   : %s\nMailid : %s\nNumber : %s", this.name, this.mail_id, this.number));
+		System.out.println(String.format("Name       : %s\nMailid     : %s\nNumber     : %s", this.name, this.mail_id, this.number));
 		if (address != null) {
 			address.viewAddress();
 		}
+		else {
+			System.out.println("Door No : Nill  /nStreet Name : Nill /nPinCode : Nill");
+		}
+
+//		else {System.out.println("nulkl");}
 		System.out.println();
 	}
 }

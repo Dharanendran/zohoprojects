@@ -8,7 +8,9 @@ public class NumberCheckerUtil {
 
 			return true;
 		}
+		System.out.println();
 		System.out.println("OOPS! ,The Number You Entered Is InValid !");
+		System.out.println();
 		return false;
 	}
 

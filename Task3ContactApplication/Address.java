@@ -2,10 +2,10 @@ package Task3ContactApplication;
 
 public class Address {
 
-	private int door_no = 0;
-	private String street_name= null;
+	private int door_no ;
+	private String street_name ;
 	
-	private int pin_code = 0;
+	private int pin_code ;
 
 	public int getDoor_no() {
 		return door_no;
@@ -42,7 +42,7 @@ public class Address {
 
 	
 	public void viewAddress() {
-		System.out.println(String.format("Door No : %s%nStreet Name: %s%nPincode : %s",door_no , street_name,pin_code));
+		System.out.println(String.format("Door No    : %s%nStreet Name: %s%nPincode    : %s", door_no >-1?door_no : "NIL" , street_name != null? street_name :"NIL" , pin_code >-1? pin_code : "NIL"));
 	}
 
 }
